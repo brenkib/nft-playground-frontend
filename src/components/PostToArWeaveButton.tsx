@@ -4,14 +4,14 @@ import React from  "react";
 import { NFTMetadata } from '../utils/types';
 
 const postMetadata = async (metadata: NFTMetadata) => {
-    const response = await fetch("/api/ar-drive", {
+    const response = await fetch(process.env.URL + "/api/arweave", {
         method: "POST",
         body: JSON.stringify(metadata),
     });
     return response.json();
 };
 
-export default function PostMetadataButton() {
+export default function PostToArWeaveButton() {
     const onUploadClicked = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         return postMetadata({
@@ -26,7 +26,7 @@ export default function PostMetadataButton() {
     return (
         <React.Fragment>
             <button className={'mx-2 rounded-3xl bg-blue-500 px-4 py-2 text-white'} onClick={onUploadClicked}>
-                Test Upload to Ardrive
+                Test Upload to Arweave
             </button>
         </React.Fragment>
 
