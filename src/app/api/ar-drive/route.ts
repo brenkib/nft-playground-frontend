@@ -5,15 +5,16 @@ export const dynamic = 'force-dynamic'; // defaults to auto
 
 const ARDRIVE_KEY = process.env.ARDRIVE_KEY;
 
-/* GET should return metadata by transaction ID */
+/* GET  transaction ID */
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const tx = searchParams.get('tx');
     if (!tx) {
         return Response.json({message: 'no tx found'}, { status: 404 });
     }
-
-    const transaction =  await arweave.transactions.get(tx);
+    const status =  await arweave.transactions.getStatus(tx);
+    console.log(status);
+    const transaction =  await arweave.transactions.getData(tx, {decode: true, string: true});
     console.log(transaction);
 
     return Response.json({ transaction });
@@ -44,6 +45,6 @@ const runUpload = async (data: NFTMetadata, contentType: Array<string>, isUpload
     await arweave.transactions.sign(tx, key);
     await arweave.transactions.post(tx);
 
-    //   console.log("url", `https://arweave.net/${tx.id}`);
+    console.log("url", `https://arweave.net/${tx.id}`);
     return tx;
 };
