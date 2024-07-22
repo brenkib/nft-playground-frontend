@@ -30,9 +30,9 @@ export const NFTListForAddress = ({ address }: { address: Address }) => {
     return (
         <div>
             <div>Your BrenkibNFT Balance: {balance?.toString()}</div>
-            <div className={"flex gap-4"}>
+            <div className={"flex gap-4 flex-wrap"}>
                 {[...Array(Number(balance))].map((x, i) =>
-                    <NFTCard contractAddress={contractAddress} tokenIndex={i} key={i} />
+                    <NFTCard tokenIndex={i} key={i} />
                 )}
             </div>
             

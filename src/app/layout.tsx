@@ -6,6 +6,7 @@ import { Inter as FontSans } from 'next/font/google';
 import { Providers } from './providers';
 import { cn } from '../utils/cn';
 import React from 'react';
+import MainLayout from '../components/layouts/MainLayout';
 
 const fontSans = FontSans({
     subsets: ['latin'],
@@ -20,7 +21,7 @@ function RootLayout({ children }: { children: React.ReactNode }) {
             suppressHydrationWarning
         >
             <body>
-                <Providers>{children}</Providers>
+            <Providers><MainLayout>{children}</MainLayout></Providers>
             </body>
         </html>
     );

@@ -35,7 +35,7 @@ export const NFTCard = ({ tokenIndex }: NFTCardProps) => {
             {nftMetadata ? (
                 <div
                     className={
-                        'my-4 flex w-fit flex-col items-center rounded-3xl border border-lightGreen p-4 hover:border-mainText'
+                        'my-4 min-h-[350px] flex w-fit flex-col justify-center items-center rounded-3xl border border-lightGreen p-4 hover:border-mainText'
                     }
                 >
                     <div>
@@ -61,14 +61,27 @@ export const NFTCard = ({ tokenIndex }: NFTCardProps) => {
                     <h2 className={'text-2xl'}>{nftMetadata.name}</h2>
                     <p>{nftMetadata.description}</p>
                     <p>Id: {Number(tokenId)}</p>
+
+                    <p>{`Collection: ${contractAddress}`}</p>
                     <div>
-                        <p>{`Collection: ${contractAddress}`}</p>
                         <button
+                            className={
+                                'mx-2 rounded-3xl bg-blue-500 px-4 py-2 text-white'
+                            }
                             onClick={() => copyToClipboard(contractAddress)}
                         >
                             Copy
                         </button>
+
+                        <button
+                            className={'mx-2 rounded-3xl bg-blue-500 px-4 py-2 text-white'}
+                            onClick={() => copyToClipboard(contractAddress)}
+                        >
+                            Transfer
+                        </button>
                     </div>
+
+
                     <div>
                         <a
                             target="_blank"
@@ -79,7 +92,7 @@ export const NFTCard = ({ tokenIndex }: NFTCardProps) => {
                     </div>
                 </div>
             ) : (
-                <div>No metadata for this NFT</div>
+                <div></div>
             )}
         </React.Fragment>
     );

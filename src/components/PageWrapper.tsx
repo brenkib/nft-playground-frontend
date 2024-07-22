@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 export default function PageWrapper({ children }: { children: ReactNode }) {
     return (
         <>
-            <main className={'min-h-[80vh] h-full w-full px-52 py-20'} role={"main"}>
+            <main className={'min-h-[80vh] h-full w-full px-16 md:px-52 py-20'} role={"main"}>
                 {children}
             </main>
             <div className={'fixed bottom-0 w-full rotate-180 overflow-hidden'} role={"banner"}>

@@ -1,13 +1,13 @@
 import React from  "react";
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import MyNFTsPage from '../components/MyNFTsPage';
-import Link from 'next/link';
-import MintNewNFTsPage from '../components/MintNewNFTsPage';
+import MyNFTsPage from '../../components/MyNFTsPage';
 
 export default async function Index() {
     return (
         <React.Fragment>
-            <MintNewNFTsPage/>
+            <div>
+                <MyNFTsPage />
+            </div>
         </React.Fragment>
     
     );
