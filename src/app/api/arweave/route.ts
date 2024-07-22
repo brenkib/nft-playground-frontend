@@ -21,7 +21,7 @@ export async function GET(request: Request) {
 }
 
 
-//Upload metdata file to ar-drive
+//Upload transaction of file to arweave
 export async function POST(request: Request) {
     const res = await request.json();
     const metaContentType = ["Content-Type", "application/json"];
@@ -41,6 +41,7 @@ const runUpload = async (data: NFTMetadata, contentType: Array<string>, isUpload
     const key = JSON.parse(ARDRIVE_KEY);
     const tx = await arweave.createTransaction({ data: JSON.stringify(data) }, key);
     tx.addTag(contentType[0], contentType[1]);
+    tx.addTag("App-Name", "NFT-Practice");
 
     await arweave.transactions.sign(tx, key);
     await arweave.transactions.post(tx);
