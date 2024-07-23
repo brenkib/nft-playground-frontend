@@ -11,7 +11,7 @@ async function getMetadataForNFT() {
 }
 
 export default async function Index() {
-    const metadata = await getMetadataForNFT();
+    //const metadata = await getMetadataForNFT();
     return (
         <React.Fragment>
             <MintNewNFTsPage/>

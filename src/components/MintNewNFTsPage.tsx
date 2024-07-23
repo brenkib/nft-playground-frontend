@@ -1,9 +1,8 @@
 "use client"
 
-import { useAccount } from 'wagmi';
-import { NFTListForAddress } from './NFTListForAddress';
 import PageWrapper from './PageWrapper';
 import { NFTCardMint } from './NFTCardMint';
+import { NFTCardMintActions } from './NFTCardMintActions';
 
 export default function MintNewNFTsPage() {
     const nft1ImageURI = "https://arweave.net/lMKuh-SWrLtIXKvwJgxsLHt6WHhj4-xOc5e3a_M1jQ4";
@@ -17,7 +16,7 @@ export default function MintNewNFTsPage() {
         <div className={"flex gap-4 flex-wrap"}>
             <NFTCardMint metaDataURI={metaDataURI1} image={nft1ImageURI} name={"nft1"}
                          description={"Brenkibs First NFT"} />
-            <NFTCardMint metaDataURI={metaDataURI2} image={nft2ImageURI} name={"nft2"}
+            <NFTCardMintActions metaDataURI={metaDataURI2} image={nft2ImageURI} name={"nft2"}
                          description={"Brenkibs Second NFT"} />
         </div>
     </PageWrapper>;

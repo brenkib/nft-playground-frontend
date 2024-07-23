@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { SyntheticEvent } from 'react';
-import { BaseError, useAccount, useWaitForTransactionReceipt, useWriteContract } from 'wagmi';
+import { BaseError, useAccount } from 'wagmi';
 import { contractAddress, wagmiABI } from '../utils/wagmiContract';
-import { sepolia } from 'wagmi/chains';
-import { Address } from 'viem';
+import { Address, Hash } from 'viem';
 import Image from 'next/image';
-import { useMintNFT } from '../hooks/useMintNFT';
+import { mintNFT } from '../utils/mintNFT';
 
 interface NFTCardProps {
     image: string;
@@ -13,22 +12,23 @@ interface NFTCardProps {
     description?: string;
     metaDataURI: string;
 }
+interface MintResult {
+    hash: Hash;
+    status: string;
+}
 
-export const NFTCardMint = ({ image, name, description, metaDataURI }: NFTCardProps) => {
+export const NFTCardMintActions = ({ image, name, description, metaDataURI }: NFTCardProps) => {
     const { address, isConnected } = useAccount();
-    const {
-        writeContract, hash, error, isPending, isConfirming, isConfirmed,
-    } = useMintNFT(address as Address, metaDataURI);
+    const [data, setData] = useState<MintResult>();
+    const [isLoading, setLoading] = useState(false);
 
     async function mintNewNFT(e: React.MouseEvent<HTMLButtonElement>) {
         e.preventDefault();
-        writeContract();
+        setLoading(true);
+        const result = await mintNFT(address as Address, metaDataURI);
+        setData(result);
+        setLoading(false);
     }
-
-    const placeholderImage = './no-image-icon.png';
-    const onImageError = (e: SyntheticEvent<HTMLImageElement, Event>) => {
-        e.currentTarget.src = placeholderImage;
-    };
 
     return (
         <React.Fragment>
@@ -43,7 +43,6 @@ export const NFTCardMint = ({ image, name, description, metaDataURI }: NFTCardPr
                         alt={name}
                         width={0}
                         height={0}
-                        onError={onImageError}
                         sizes="100vw"
                         style={{
                             width: '100%',
@@ -59,27 +58,24 @@ export const NFTCardMint = ({ image, name, description, metaDataURI }: NFTCardPr
                 {isConnected && address ?
                     <div>
                         <button
-                            disabled={isPending}
+                            disabled={isLoading}
                             className={
                                 'mx-2 rounded-3xl bg-blue-500 px-4 py-2 text-white'
                             }
                             onClick={(event) => mintNewNFT(event)}
                         >
-                            {isPending ? 'Confirming...' : 'Mint'}
+                            {isLoading ? 'Confirming...' : 'Mint'}
                         </button>
                     </div>
                     :
                     <div className={'text-mainTextHover italic'}>Connect Wallet To Mint</div>
                 }
 
-                {hash && <div>Transaction Hash: {hash.substring(0, 8)}...</div>}
+                {data?.hash && <div>Transaction Hash: {data.hash.substring(0, 8)}...</div>}
 
-                {isConfirming && <div>Waiting for confirmation...</div>}
-                {isConfirmed && <div>Transaction confirmed.</div>}
+                {isLoading && <div>Waiting for confirmation...</div>}
+                {data?.status === "success" && <div>Transaction confirmed.</div>}
 
-                {error && (
-                    <div>Error: {(error as BaseError).shortMessage || error.message}</div>
-                )}
             </div>
         </React.Fragment>
     );
