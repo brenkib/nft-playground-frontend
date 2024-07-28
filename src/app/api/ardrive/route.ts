@@ -1,7 +1,5 @@
 import { readJWKFile, arDriveFactory, wrapFileOrFolder, EID } from 'ardrive-core-js';
-import { NFTMetadata } from '../../../utils/types';
 export const dynamic = 'force-dynamic'; // defaults to auto
-const ARDRIVE_KEY = process.env.ARDRIVE_KEY;
 const WALLET_PATH = process.env.WALLET_PATH as string;
 
 
