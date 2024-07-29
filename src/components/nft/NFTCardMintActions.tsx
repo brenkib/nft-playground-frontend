@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { SyntheticEvent } from 'react';
 import { BaseError, useAccount } from 'wagmi';
-import { contractAddress, wagmiABI } from '../utils/wagmiContract';
+import { contractAddress, wagmiABI } from '../../utils/wagmiContract';
 import { Address, Hash } from 'viem';
 import Image from 'next/image';
-import { mintNFT } from '../utils/mintNFT';
+import { mintNFT } from '../../utils/mintNFT';
 
 interface NFTCardProps {
     image: string;

@@ -1,6 +1,6 @@
 import React from  "react";
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import MyNFTsPage from '../../components/MyNFTsPage';
+import MyNFTsPage from '../../components/pages/MyNFTsPage';
 
 export default async function Index() {
     return (

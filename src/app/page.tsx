@@ -1,5 +1,5 @@
 import React from  "react";
-import MintNewNFTsPage from '../components/MintNewNFTsPage';
+import MintNewNFTsPage from '../components/pages/MintNewNFTsPage';
 
 
 async function getMetadataForNFT() {

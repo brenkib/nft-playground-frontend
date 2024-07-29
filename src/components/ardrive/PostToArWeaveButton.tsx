@@ -1,7 +1,7 @@
 "use client"
 
 import React from  "react";
-import { NFTMetadata } from '../utils/types';
+import { NFTMetadata } from '../../utils/types';
 
 const postMetadata = async (metadata: NFTMetadata) => {
     const response = await fetch(process.env.URL + "/api/arweave", {

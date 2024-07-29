@@ -1,5 +1,5 @@
 import { type BaseError, useReadContract } from 'wagmi';
-import { contractAddress, wagmiABI } from '../utils/wagmiContract';
+import { contractAddress, wagmiABI } from '../../utils/wagmiContract';
 import type { Address } from 'viem';
 import { sepolia } from 'wagmi/chains';
 import { NFTCard } from './NFTCard';

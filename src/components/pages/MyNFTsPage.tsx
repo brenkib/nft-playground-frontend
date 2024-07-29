@@ -1,16 +1,16 @@
 "use client"
 
 import { useAccount } from 'wagmi';
-import PageWrapper from './PageWrapper';
-import { NFTListWithTheGraph } from './NFTListWithTheGraph';
+import { NFTListForAddress } from '../nft/NFTListForAddress';
+import PageWrapper from '../PageWrapper';
 
-export default function MyNFTsTheGraph() {
+export default function MyNFTsPage() {
     const {isConnected, address} = useAccount();
     return <PageWrapper>
         {!isConnected || !address ?
             <div>Please Connect Wallet to view BrenkibNFTs</div>
             :
-            <NFTListWithTheGraph address={address} />
+            <NFTListForAddress address={address} />
         }
     </PageWrapper>;
 }

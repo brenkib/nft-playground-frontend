@@ -2,7 +2,7 @@ import React from 'react';
 import { useAccount } from 'wagmi';
 import { Address } from 'viem';
 import { NFTCardView } from './NFTCardView';
-import { useGetNFT } from '../hooks/useGetNFTs';
+import { useGetNFT } from '../../hooks/useGetNFTs';
 
 interface NFTCardProps {
     tokenIndex: number;

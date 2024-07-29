@@ -1,8 +1,8 @@
 "use client"
 
-import PageWrapper from './PageWrapper';
-import { NFTCardMint } from './NFTCardMint';
-import { NFTCardMintActions } from './NFTCardMintActions';
+import PageWrapper from '../PageWrapper';
+import { NFTCardMint } from '../nft/NFTCardMint';
+import { NFTCardMintActions } from '../nft/NFTCardMintActions';
 
 export default function MintNewNFTsPage() {
     const nft1ImageURI = "https://arweave.net/lMKuh-SWrLtIXKvwJgxsLHt6WHhj4-xOc5e3a_M1jQ4";

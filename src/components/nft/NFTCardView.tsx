@@ -1,6 +1,6 @@
 import React from 'react';
-import { copyToClipboard } from '../utils/copyToClipboard';
-import { contractAddress, wagmiABI } from '../utils/wagmiContract';
+import { copyToClipboard } from '../../utils/copyToClipboard';
+import { contractAddress, wagmiABI } from '../../utils/wagmiContract';
 import Image from 'next/image';
 
 interface NFTCardProps {

@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import PostToArWeaveButton from '../PostToArWeaveButton';
-import PostToArDriveButton from '../PostToArDriveButton';
+import PostToArWeaveButton from '../ardrive/PostToArWeaveButton';
+import PostToArDriveButton from '../ardrive/PostToArDriveButton';
 import ConnectOptions from '../ConnectOptions';
 
 export default async function MainLayout({ children }: { children: React.ReactNode }) {
@@ -12,6 +12,7 @@ export default async function MainLayout({ children }: { children: React.ReactNo
             </div>
             <div className={'flex justify-between px-6 '}>
                 <div>
+                    <Link className={'mx-2 rounded-3xl bg-blue-500 px-4 py-2 text-white'} href={'zeroDev-login'}>ZeroDev Login</Link>
                     <Link className={'mx-2 rounded-3xl bg-blue-500 px-4 py-2 text-white'} href={'/'}>Mint NFTs</Link>
                     <Link className={'mx-2 rounded-3xl bg-blue-500 px-4 py-2 text-white'} href={'my-nfts'}>My
                         NFTs</Link>
