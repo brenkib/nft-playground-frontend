@@ -12,11 +12,11 @@ export default async function MainLayout({ children }: { children: React.ReactNo
             </div>
             <div className={'flex justify-between px-6 '}>
                 <div>
-                    <Link className={'mx-2 rounded-3xl bg-blue-500 px-4 py-2 text-white'} href={'zeroDev-login'}>ZeroDev Login</Link>
+                    <Link className={'mx-2 rounded-3xl bg-blue-500 px-4 py-2 text-white'} href={'/zeroDev'}>ZeroDev Login</Link>
                     <Link className={'mx-2 rounded-3xl bg-blue-500 px-4 py-2 text-white'} href={'/'}>Mint NFTs</Link>
-                    <Link className={'mx-2 rounded-3xl bg-blue-500 px-4 py-2 text-white'} href={'my-nfts'}>My
+                    <Link className={'mx-2 rounded-3xl bg-blue-500 px-4 py-2 text-white'} href={'/my-nfts'}>My
                         NFTs</Link>
-                    <Link className={'mx-2 rounded-3xl bg-blue-500 px-4 py-2 text-white'} href={'the-graph-fetching'}>The
+                    <Link className={'mx-2 rounded-3xl bg-blue-500 px-4 py-2 text-white'} href={'/the-graph-fetching'}>The
                         Graph Demo</Link>
                     <PostToArWeaveButton />
                     <PostToArDriveButton />

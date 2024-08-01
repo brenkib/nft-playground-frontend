@@ -1,7 +1,6 @@
 import React from 'react';
-import { SyntheticEvent } from 'react';
-import { BaseError, useAccount, useWaitForTransactionReceipt, useWriteContract } from 'wagmi';
-import { contractAddress, wagmiABI } from '../../utils/wagmiContract';
+import { BaseError, useAccount } from 'wagmi';
+import { contractAddress } from '../../utils/wagmiContract';
 import { Address, encodeFunctionData } from 'viem';
 import Image from 'next/image';
 import { usePrivySmartAccount } from '@zerodev/privy';
@@ -15,20 +14,17 @@ interface NFTCardProps {
 }
 
 export const NFTCardMintZeroDev = ({ image, name, description, metaDataURI }: NFTCardProps) => {
-    const { user, zeroDevReady, sendTransaction } = usePrivySmartAccount();
-    const { mintNFT } = useMintNFTZeroDev(user?.wallet?.address as Address, metaDataURI);
-    const [txHash, setTxHash] = React.useState<string>();
-    const [error, setError] = React.useState<Error>();
-    const [loading, setLoading] = React.useState<boolean>(false);
+    const { user, zeroDevReady } = usePrivySmartAccount();
+    const { address } = useAccount()
+    const { mintNFT, isLoading, error } = useMintNFTZeroDev(address as Address, metaDataURI);
 
     async function mintNewNFT(e: React.MouseEvent<HTMLButtonElement>) {
         e.preventDefault();
-        if (!zeroDevReady || !user?.wallet?.address || !sendTransaction) {
+        if (!zeroDevReady || !user?.wallet?.address) {
             console.error('Wallet has not fully initialized yet');
             return;
         }
-        setLoading(true);
-        await mintNFT((hash) => setTxHash(hash), (err) => setError(err), () => setLoading(false));
+        mintNFT();
     }
 
     return (
@@ -59,20 +55,18 @@ export const NFTCardMintZeroDev = ({ image, name, description, metaDataURI }: NF
                 {zeroDevReady && user?.wallet?.address ?
                     <div>
                         <button
-                            disabled={loading}
+                            disabled={isLoading}
                             className={
                                 'mx-2 rounded-3xl bg-blue-500 px-4 py-2 text-white'
                             }
                             onClick={(event) => mintNewNFT(event)}
                         >
-                            {loading ? 'Confirming...' : 'Mint'}
+                            {isLoading ? 'Confirming...' : 'Mint'}
                         </button>
                     </div>
                     :
                     <div className={'text-mainTextHover italic'}>Connect Wallet To Mint</div>
                 }
-
-                {txHash && <div>Transaction Hash: {txHash.substring(0, 8)}...</div>}
 
                 {error && (
                     <div>Error: {(error as BaseError).shortMessage || error.message}</div>

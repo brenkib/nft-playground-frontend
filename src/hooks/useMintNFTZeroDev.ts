@@ -1,25 +1,39 @@
 import React, { useCallback } from 'react';
 import { contractAddress, wagmiABI } from '../utils/wagmiContract';
-import { Address, encodeFunctionData } from 'viem';
-import { usePrivySmartAccount } from '@zerodev/privy';
+import { Address } from 'viem';
 import { sepolia } from 'wagmi/chains';
+import { useWriteContracts } from 'wagmi/experimental';
+import { useConnectors } from 'wagmi';
 
 export function useMintNFTZeroDev(address: Address, tokenURI: string) {
-    const { ready, authenticated, user, zeroDevReady, sendTransaction, logout } =
-        usePrivySmartAccount();
-
-    const mint = React.useCallback((onSuccess = (hash: string) => {}, onError = (error: Error) => {}, onFinnaly = () => {}) => {
-        return sendTransaction({
-            to: contractAddress,
-            data: encodeFunctionData({
-                abi: wagmiABI,
-                functionName: "safeMint",
-                args: [address, tokenURI],
-            }),
+    const { data, writeContracts, isPending, error } = useWriteContracts();
+    const connectors = useConnectors();
+    const wrappedWriteContract = useCallback(() => {
+        writeContracts({
+            contracts: [
+                {
+                    address: contractAddress,
+                    abi: wagmiABI,
+                    functionName: "safeMint",
+                    args: [address, tokenURI],
+                },
+                {
+                    address: contractAddress,
+                    abi: wagmiABI,
+                    functionName: "safeMint",
+                    args: [address, tokenURI],
+                },
+            ],
+            capabilities: {
+                paymasterService: {
+                    url: 'https://rpc.zerodev.app/api/v2/paymaster/7393dbf2-fb38-417c-a631-fb843db210e4'
+                }
+            },
+            connector: connectors[0],
             chainId: sepolia.id,
-        }).then(onSuccess).catch(onError).finally(onFinnaly);
-    }, [address, sendTransaction, tokenURI]);
+        });
+    }, [address, connectors, tokenURI, writeContracts]);
 
 
-    return { mintNFT: mint };
+    return { mintNFT: wrappedWriteContract, isLoading: isPending, error, hash: data };
 }

@@ -1,7 +1,7 @@
 'use client';
 import * as React from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { WagmiProvider } from 'wagmi';
+import { WagmiProvider } from '@privy-io/wagmi';
 import { PrivyProvider } from '@privy-io/react-auth';
 import { RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import { ZeroDevProvider } from '@zerodev/privy';
@@ -16,13 +16,14 @@ const ZERODEV_PROJECT_ID = process.env.NEXT_PUBLIC_ZERODEV_PROJECT_ID || '';
 
 export function Providers({ children }: { children: React.ReactNode }) {
     return (
+
         <ZeroDevProvider projectId={ZERODEV_PROJECT_ID}>
             <PrivyProvider appId={PRIVY_APP_ID} config={privyConfig}>
-                <WagmiProvider config={config}>
-                    <QueryClientProvider client={queryClient}>
+                <QueryClientProvider client={queryClient}>
+                    <WagmiProvider config={config}>
                         <RainbowKitProvider>{children}</RainbowKitProvider>
-                    </QueryClientProvider>
-                </WagmiProvider>
+                    </WagmiProvider>
+                </QueryClientProvider>
             </PrivyProvider>
         </ZeroDevProvider>
 

@@ -6,6 +6,8 @@ import { sepolia } from 'wagmi/chains';
 import { Address } from 'viem';
 import Image from 'next/image';
 import { useMintNFT } from '../../hooks/useMintNFT';
+import { usePrivySmartAccount } from '@zerodev/privy';
+import { useWallets } from '@privy-io/react-auth';
 
 interface NFTCardProps {
     image: string;
